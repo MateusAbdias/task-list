@@ -69,6 +69,25 @@ body {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    margin-top: 6px;
+}
+
+.task-item i {
+    background-color: rgba(33, 128, 206, 0.616);
+    padding: 12px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.task-item i:hover {
+    cursor: pointer;
+}
+
 /* Utilities */
 /* 
     * !important substitui TODAS as regras de estilo anteriores para essa propriedade específica nesse elemento
@@ -79,4 +98,8 @@ body {
 
 .error::placeholder {
     color: red;
+}
+
+.completed {
+    text-decoration: line-through;
 }
