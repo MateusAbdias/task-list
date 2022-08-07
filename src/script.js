@@ -5,7 +5,7 @@ const addTaskButton = document.querySelector(".new-task-button");
 const validateInput = () => {
     return inputElement.value.trim().length > 0
     /* 
-        *Escrita dessa forma, eu não uso IF, pois dessa forma eu já tarsnformo em booleano
+        *Escrita dessa forma, não utiliza IF, pois, já é retornado um valor booleano
         *Essa função é a mesma coisa que:
             if (inputElement.value.trim().length > 0) {
                 return true;
@@ -23,6 +23,7 @@ const handleAddTask = () => {
     if (!inputIsValid) {
         return inputElement.classList.add("error");
     }
+
 };
 
 //função para checar novamente se o input esta válido, e se estiver ela remove o error
