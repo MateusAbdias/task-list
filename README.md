@@ -1,4 +1,4 @@
-#Lista de Tarefas
+# Lista de Tarefas
 
 ##Sobre o Projeto
 O ínicio do projeto foi no dia 06/08/2022, a aplicação web consiste em um CRUD básico, no qual é adicionado os dados no input e depois são listados, tendo a opção de marcar atividade como concluida ou exclui-la.
