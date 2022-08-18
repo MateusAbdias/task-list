@@ -52,6 +52,8 @@ const handleAddTask = () => {
 
     //limpa input
     inputElement.value = "";
+
+    updateLocalStorage();
 };
 
 //Percorre todo o HMTL procurando exatamente a div que eu cliquei 
@@ -66,6 +68,8 @@ const handleClick = (taskContent) => {
             task.firstChild.classList.toggle("completed");
         };
     }
+
+    updateLocalStorage();
 };
 
 const handleDeleteClick = (taskItemContainer, taskContent) => {
@@ -78,6 +82,8 @@ const handleDeleteClick = (taskItemContainer, taskContent) => {
             taskItemContainer.remove();
         };
     }
+
+    updateLocalStorage();
 };
 
 //função para checar novamente se o input esta válido, e se estiver ela remove o error
@@ -88,6 +94,60 @@ const handleInputChange = () => {
 
 };
 
+//Função que atualiza o local storage
+const updateLocalStorage = () => {
+    const tasks = taskContainer.childNodes;
+
+    const localStorageTasks = [...tasks].map((task) => {
+        const content = task.firstChild;
+        const isCompleted = content.classList.contains("completed");
+
+        return {descripiton: content.innerText, isCompleted};
+    });
+
+    //O JASON.stringify trasnforma o JSON em uma string e armazena ela
+    localStorage.setItem("tasks", JSON.stringify(localStorageTasks))
+};
+
+const refreshTasksUsingLocalStorage = () => {
+    const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+
+    if (!tasksFromLocalStorage) return;
+
+    for (const task of tasksFromLocalStorage) {
+        //Cria a div através do createElement
+        const taskItemContainer = document.createElement("div");
+        taskItemContainer.classList.add("task-item");
+
+        //Cria um paragrafo no HTML
+        const taskContent = document.createElement("p");
+        //O paragrafo recebe o valor do input
+        taskContent.innerText = task.descripiton;
+
+        if (task.isCompleted) {
+            taskContent.classList.add("completed");
+        }
+
+        //Adiciona um evento que ao clicar executa a função
+        taskContent.addEventListener('click', () => handleClick(taskContent));
+
+        //Adiciona o ícone de lixeira
+        const deleteItem = document.createElement("i");
+        deleteItem.classList.add("fa-solid");
+        deleteItem.classList.add("fa-trash");
+    
+         //Adiciona um evento que ao clicar executa a função
+         deleteItem.addEventListener("click", () => handleDeleteClick(taskItemContainer, taskContent));
+
+        //Cria um novo elemento no HTML
+        taskItemContainer.appendChild(taskContent);
+        taskItemContainer.appendChild(deleteItem);
+        taskContainer.appendChild(taskItemContainer);
+    }
+};
+
+//Essa função pega as tarefas que estão no local storage ao recarregar a página
+refreshTasksUsingLocalStorage();
 
 //ao clicar o input será verificado e validado (ou não)
 addTaskButton.addEventListener("click", () => handleAddTask());
